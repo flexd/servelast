@@ -45,7 +45,7 @@ func main() {
 
 func checkFile(file string, fileinfo os.FileInfo, err error) error {
 	if err != nil {
-		fmt.Println(err) // can't walk here,
+		log.Println(err) // can't walk here,
 		return nil       // but continue walking elsewhere
 	}
 	if fileinfo.IsDir() {
