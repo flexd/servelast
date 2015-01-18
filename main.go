@@ -16,6 +16,7 @@ import (
 var (
 	basePath     = flag.String("basepath", "files", "Base path to serve files from")
 	listenAddr   = flag.String("listen", ":5000", "Listen address")
+	pollInterval = flag.Duration("interval", 5*time.Second, "Duration between directory polls")
 	handler      *LatestHandler
 	lastFilename string
 )
@@ -69,7 +70,7 @@ func (l *LatestHandler) run() {
 			log.Println("Newest file is", l.filepath)
 			lastFilename = l.filepath
 		}
-		time.Sleep(5 * time.Second)
+		time.Sleep(*pollInterval)
 	}
 }
 func (l *LatestHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
