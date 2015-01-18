@@ -40,7 +40,7 @@ func main() {
 	handler = new(LatestHandler)
 	go handler.run()
 	log.Printf("Serving directory: \"%v\" from %v", *basePath, *listenAddr)
-	log.Fatal(http.ListenAndServe(*listenAddr, LoggingHandler(handler)))
+	log.Fatal(http.ListenAndServe(*listenAddr, LoggingHandler(handlers.CompressHandler(handler))))
 }
 
 func checkFile(file string, fileinfo os.FileInfo, err error) error {
